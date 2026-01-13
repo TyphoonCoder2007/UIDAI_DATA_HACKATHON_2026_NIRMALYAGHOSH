@@ -1,10 +1,11 @@
 <p align="center">
-  <img src="https://uidai.gov.in/images/langPage/new-aadhaar-logo.png" alt="Aadhaar Logo" width="140"/>
+  <img src="https://img.shields.io/badge/🔐_AADHAAR-Unique_Identification_Authority_of_India-FF6B35?style=for-the-badge&labelColor=1a1a2e" alt="UIDAI"/>
 </p>
 
 <h1 align="center">
-  <img src="https://img.shields.io/badge/🇮🇳-AadhaarInsight_Pro-FF6B35?style=for-the-badge" alt="AadhaarInsight Pro"/>
+  📊 AadhaarInsight Pro
 </h1>
+
 
 <h3 align="center">
   🏆 UIDAI Data Analytics Hackathon 2026 — Official Submission
