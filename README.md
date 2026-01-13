@@ -8,7 +8,7 @@
 
 
 <h3 align="center">
-  🏆 UIDAI Data Analytics Hackathon 2026 — Official Submission
+  🏆 UIDAI Data Hackathon 2026 — Official Submission
 </h3>
 
 <p align="center">
@@ -390,6 +390,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ---
 
 <p align="center">
-  <strong>🏛️ UIDAI Data Analytics Hackathon 2026</strong><br/>
+  <strong>🏛️ UIDAI Data Hackathon 2026</strong><br/>
   <sub>Empowering 1.4 Billion Indians Through Data-Driven Governance</sub>
 </p>
