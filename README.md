@@ -377,18 +377,18 @@ UIDAI_DATA_HACKATHON_2026_NIRMALYAGHOSH/
 
 ---
 
-## 📜 License & Acknowledgments
+## 📜 License
 
-This project is developed exclusively for the **UIDAI Data Analytics Hackathon 2026**.
-
-Data sourced from [UIDAI Open Data Portal](https://uidai.gov.in/).
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 <p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License"/>
   <img src="https://img.shields.io/badge/🇮🇳_Made_in_India-FF9933?style=for-the-badge" alt="Made in India"/>
 </p>
 
 ---
 
 <p align="center">
-  <sub>🏛️ <strong>Empowering 1.4 Billion Indians Through Data-Driven Governance</strong></sub>
+  <strong>🏛️ UIDAI Data Analytics Hackathon 2026</strong><br/>
+  <sub>Empowering 1.4 Billion Indians Through Data-Driven Governance</sub>
 </p>
