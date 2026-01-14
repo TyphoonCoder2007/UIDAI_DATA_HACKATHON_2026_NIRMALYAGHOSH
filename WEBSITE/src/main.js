@@ -58,6 +58,11 @@ const init = async () => {
       updateConnectionStatus(`Loading ${type}... (${current + 1}/${total})`);
     });
 
+    // Check if data is empty (critical error)
+    if (result.summary.stateCount === 0 || result.summary.totalEnrollments === 0) {
+      throw new Error("No data loaded. CSV files may be missing or failed to parse.");
+    }
+
     appState.metrics = result.metrics;
     appState.alerts = result.alerts;
     appState.insights = result.insights;
@@ -94,8 +99,16 @@ const init = async () => {
     console.error('❌ Failed to load data:', error);
     appState.loadError = error.message;
     appState.isLoading = false;
+
+    // Show visual error
     updateConnectionStatus('Data Load Error');
-    showError(error.message);
+    const loadMsg = document.querySelector('.loading-text');
+    if (loadMsg) {
+      loadMsg.textContent = `Error: ${error.message}. Please refresh or check connection.`;
+      loadMsg.style.color = '#ef4444';
+    }
+
+    alert(`Failed to load data: ${error.message}`);
   }
 };
 
