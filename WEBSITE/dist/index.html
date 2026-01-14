@@ -10,8 +10,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-CNw0FQ4k.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Bx_gb1_4.css">
+  <!-- Leaflet.js for India Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Chart.js for Trend Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- jsPDF for PDF Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.1/jspdf.plugin.autotable.min.js"></script>
+  <script type="module" crossorigin src="/assets/index-D2LkF5Ad.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CrtU69-6.css">
 </head>
 
 <body>
@@ -28,6 +36,9 @@
         <a href="#insights" class="nav-link" data-page="insights">Policy Insights</a>
       </nav>
       <div class="nav-status">
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+          🌙
+        </button>
         <span class="status-dot live"></span>
         <span id="connection-status">Connecting...</span>
       </div>
@@ -102,6 +113,125 @@
         </div>
       </div>
 
+      <!-- AI-Powered Insights Panel -->
+      <div class="ai-insights-panel">
+        <div class="ai-insights-header">
+          <h2>🧠 AI-Powered Insights <span class="ai-badge">LIVE</span></h2>
+        </div>
+        <div id="ai-insights-container">
+          <div class="insight-card info">
+            <div class="insight-icon">📊</div>
+            <div class="insight-content">
+              <div class="insight-title">Analyzing data...</div>
+              <div class="insight-description">AI is processing real-time enrollment metrics to generate insights.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Predictions Panel -->
+      <div class="predictions-panel">
+        <div class="predictions-header">
+          <h2>🔮 30-Day Predictions</h2>
+          <span class="ai-badge">Linear Regression</span>
+        </div>
+        <div class="prediction-summary" id="prediction-summary">
+          <div class="prediction-stat">
+            <div class="value" id="pred-national">--</div>
+            <div class="label">Predicted National Saturation</div>
+          </div>
+          <div class="prediction-stat">
+            <div class="value" id="pred-improving">--</div>
+            <div class="label">States Improving</div>
+          </div>
+          <div class="prediction-stat">
+            <div class="value" id="pred-declining">--</div>
+            <div class="label">Need Attention</div>
+          </div>
+        </div>
+        <div class="prediction-list" id="prediction-list">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Comparative Analysis Panel -->
+      <div class="comparison-panel">
+        <h2>⚖️ State Comparison</h2>
+        <div class="comparison-controls">
+          <select id="compare-state-a" onchange="updateComparison()">
+            <option value="">Select State A...</option>
+          </select>
+          <span class="comparison-vs-label">vs</span>
+          <select id="compare-state-b" onchange="updateComparison()">
+            <option value="">Select State B...</option>
+          </select>
+        </div>
+        <div id="comparison-result">
+          <div class="comparison-result" style="text-align: center; color: var(--color-text-muted);">
+            Select two states to compare their performance metrics
+          </div>
+        </div>
+
+        <!-- Rankings Grid -->
+        <div class="rankings-grid" id="rankings-grid">
+          <div class="rankings-column">
+            <h4>🏆 Health Score</h4>
+            <div id="rankings-health"></div>
+          </div>
+          <div class="rankings-column">
+            <h4>📈 Saturation</h4>
+            <div id="rankings-saturation"></div>
+          </div>
+          <div class="rankings-column">
+            <h4>⚡ Velocity</h4>
+            <div id="rankings-velocity"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolbar with Search & Export -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <input type="text" class="search-input" id="state-search" placeholder="🔍 Search states..."
+            oninput="filterStates(this.value)">
+          <select class="filter-select" id="alert-filter" onchange="filterAlerts(this.value)">
+            <option value="all">All Alerts</option>
+            <option value="critical">Critical Only</option>
+            <option value="warning">Warnings</option>
+            <option value="info">Info</option>
+          </select>
+        </div>
+        <div class="toolbar-right">
+          <button class="export-btn" id="export-pdf" onclick="exportPDF()">
+            📄 Export PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- India Map -->
+      <div class="map-container">
+        <div id="india-map"></div>
+        <div class="map-legend">
+          <div class="legend-gradient">
+            <span class="legend-label">0 (Critical)</span>
+            <div class="legend-gradient-bar"></div>
+            <span class="legend-label">100 (Healthy)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trend Charts -->
+      <div class="charts-grid">
+        <div class="chart-container">
+          <h3>📈 Enrollment Velocity Trend</h3>
+          <canvas id="velocity-chart" class="chart-canvas"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>📊 State-wise Health Comparison</h3>
+          <canvas id="health-chart" class="chart-canvas"></canvas>
+        </div>
+      </div>
+
       <!-- What Changed Today Panel -->
       <div class="panel">
         <div class="panel-header">
@@ -140,12 +270,22 @@
           <table class="data-table" id="states-table">
             <thead>
               <tr>
-                <th>State</th>
-                <th>Health</th>
-                <th>Saturation</th>
-                <th>Velocity</th>
+                <th class="sortable" data-sort="state" onclick="sortTable('state')">
+                  State <span class="sort-icon">↕</span>
+                </th>
+                <th class="sortable" data-sort="health" onclick="sortTable('health')">
+                  Health <span class="sort-icon">↕</span>
+                </th>
+                <th class="sortable" data-sort="saturation" onclick="sortTable('saturation')">
+                  Saturation <span class="sort-icon">↕</span>
+                </th>
+                <th class="sortable" data-sort="velocity" onclick="sortTable('velocity')">
+                  Velocity <span class="sort-icon">↕</span>
+                </th>
                 <th>Trend</th>
-                <th>Status</th>
+                <th class="sortable" data-sort="status" onclick="sortTable('status')">
+                  Status <span class="sort-icon">↕</span>
+                </th>
               </tr>
             </thead>
             <tbody id="states-tbody">
