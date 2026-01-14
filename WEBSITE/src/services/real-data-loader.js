@@ -108,24 +108,26 @@ export const normalizeStateName = (rawState) => {
 // CSV DATA PATHS (Relative to project root)
 // ═══════════════════════════════════════════════════════════════════════════
 
+const BLOB_BASE_URL = 'https://sskq2ktweh661hua.public.blob.vercel-storage.com';
+
 const DATA_PATHS = {
     enrollment: [
-        'data/enrollment/api_data_aadhar_enrolment_0_500000.csv',
-        'data/enrollment/api_data_aadhar_enrolment_500000_1000000.csv',
-        'data/enrollment/api_data_aadhar_enrolment_1000000_1006029.csv'
+        `${BLOB_BASE_URL}/enrollment/api_data_aadhar_enrolment_0_500000.csv`,
+        `${BLOB_BASE_URL}/enrollment/api_data_aadhar_enrolment_500000_1000000.csv`,
+        `${BLOB_BASE_URL}/enrollment/api_data_aadhar_enrolment_1000000_1006029.csv`
     ],
     demographic: [
-        'data/demographic/api_data_aadhar_demographic_0_500000.csv',
-        'data/demographic/api_data_aadhar_demographic_500000_1000000.csv',
-        'data/demographic/api_data_aadhar_demographic_1000000_1500000.csv',
-        'data/demographic/api_data_aadhar_demographic_1500000_2000000.csv',
-        'data/demographic/api_data_aadhar_demographic_2000000_2071700.csv'
+        `${BLOB_BASE_URL}/demographic/api_data_aadhar_demographic_0_500000.csv`,
+        `${BLOB_BASE_URL}/demographic/api_data_aadhar_demographic_500000_1000000.csv`,
+        `${BLOB_BASE_URL}/demographic/api_data_aadhar_demographic_1000000_1500000.csv`,
+        `${BLOB_BASE_URL}/demographic/api_data_aadhar_demographic_1500000_2000000.csv`,
+        `${BLOB_BASE_URL}/demographic/api_data_aadhar_demographic_2000000_2071700.csv`
     ],
     biometric: [
-        'data/biometric/api_data_aadhar_biometric_0_500000.csv',
-        'data/biometric/api_data_aadhar_biometric_500000_1000000.csv',
-        'data/biometric/api_data_aadhar_biometric_1000000_1500000.csv',
-        'data/biometric/api_data_aadhar_biometric_1500000_1861108.csv'
+        `${BLOB_BASE_URL}/biometric/api_data_aadhar_biometric_0_500000.csv`,
+        `${BLOB_BASE_URL}/biometric/api_data_aadhar_biometric_500000_1000000.csv`,
+        `${BLOB_BASE_URL}/biometric/api_data_aadhar_biometric_1000000_1500000.csv`,
+        `${BLOB_BASE_URL}/biometric/api_data_aadhar_biometric_1500000_1861108.csv`
     ]
 };
 
