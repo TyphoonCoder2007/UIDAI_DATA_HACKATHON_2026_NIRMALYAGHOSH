@@ -1,0 +1,19 @@
+{
+  "name": "aadhaar-intelligence-platform",
+  "version": "1.0.0",
+  "description": "Real-Time Aadhaar Societal Intelligence Platform",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "firebase": "^10.7.1"
+  },
+  "devDependencies": {
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0"
+  }
+}

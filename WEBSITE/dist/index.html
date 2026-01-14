@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Real-Time Aadhaar Societal Intelligence Platform - Policy-ready analytics for India's digital identity infrastructure">
+  <title>Aadhaar Intelligence Platform | UIDAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-CNw0FQ4k.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-Bx_gb1_4.css">
+</head>
+
+<body>
+  <!-- Navigation Header -->
+  <header class="nav-header">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span class="brand-icon">🔐</span>
+        <span class="brand-text">Aadhaar Intelligence</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#dashboard" class="nav-link active" data-page="dashboard">Live Operations</a>
+        <a href="#regional" class="nav-link" data-page="regional">Regional Analysis</a>
+        <a href="#insights" class="nav-link" data-page="insights">Policy Insights</a>
+      </nav>
+      <div class="nav-status">
+        <span class="status-dot live"></span>
+        <span id="connection-status">Connecting...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Dashboard Page -->
+    <section id="page-dashboard" class="page active">
+      <!-- Alert Banner -->
+      <div id="alert-banner" class="alert-banner hidden">
+        <div class="alert-content"></div>
+        <button class="alert-dismiss" onclick="dismissAlertBanner()">×</button>
+      </div>
+
+      <!-- Key Metrics Grid -->
+      <div class="section-header">
+        <h1>Live Operations Dashboard</h1>
+        <div class="time-refresh">
+          <span class="live-clock" id="live-clock">--:--:--</span>
+          <button class="refresh-btn" id="refresh-btn" onclick="refreshData()" title="Refresh Data">
+            🔄
+          </button>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card" data-metric="saturation">
+          <div class="metric-header">
+            <span class="metric-label">Saturation Index</span>
+            <span class="metric-trend" id="saturation-trend">--</span>
+          </div>
+          <div class="metric-value" id="saturation-value">--</div>
+          <div class="metric-subtext" id="saturation-interpretation">Aadhaar coverage as % of population</div>
+          <div class="metric-bar">
+            <div class="metric-bar-fill" id="saturation-bar" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="metric-card" data-metric="velocity">
+          <div class="metric-header">
+            <span class="metric-label">Enrollment Velocity</span>
+            <span class="metric-trend" id="velocity-trend">--</span>
+          </div>
+          <div class="metric-value" id="velocity-value">--</div>
+          <div class="metric-subtext" id="velocity-interpretation">Daily enrollments (7-day avg)</div>
+        </div>
+
+        <div class="metric-card" data-metric="stability">
+          <div class="metric-header">
+            <span class="metric-label">Biometric Stability</span>
+            <span class="metric-trend" id="stability-trend">--</span>
+          </div>
+          <div class="metric-value" id="stability-value">--</div>
+          <div class="metric-subtext" id="stability-interpretation">Lower scores indicate refresh pressure</div>
+          <div class="metric-bar">
+            <div class="metric-bar-fill" id="stability-bar" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="metric-card" data-metric="health">
+          <div class="metric-header">
+            <span class="metric-label">Health Score</span>
+            <span class="metric-trend" id="health-trend">--</span>
+          </div>
+          <div class="metric-value" id="health-value">--</div>
+          <div class="metric-subtext" id="health-interpretation">Composite inclusion indicator</div>
+          <div class="metric-bar">
+            <div class="metric-bar-fill health" id="health-bar" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- What Changed Today Panel -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>What Changed Today</h2>
+          <span class="badge" id="changes-count">0</span>
+        </div>
+        <div class="changes-list" id="changes-list">
+          <div class="empty-state">No significant changes detected today</div>
+        </div>
+      </div>
+
+      <!-- Active Alerts -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Active Alerts</h2>
+          <span class="badge critical" id="alerts-count">0</span>
+        </div>
+        <div class="alerts-list" id="alerts-list">
+          <div class="empty-state">No active alerts. All indicators within normal ranges.</div>
+        </div>
+      </div>
+
+      <!-- State Overview Table -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>State Overview</h2>
+          <div class="panel-actions">
+            <select id="sort-states" class="select-input">
+              <option value="health">Sort by Health</option>
+              <option value="saturation">Sort by Saturation</option>
+              <option value="velocity">Sort by Velocity</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="states-table">
+            <thead>
+              <tr>
+                <th>State</th>
+                <th>Health</th>
+                <th>Saturation</th>
+                <th>Velocity</th>
+                <th>Trend</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="states-tbody">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regional Page -->
+    <section id="page-regional" class="page">
+      <div class="section-header">
+        <h1>Regional Analysis</h1>
+        <select id="state-selector" class="select-input large">
+          <option value="">Select State...</option>
+        </select>
+      </div>
+
+      <div id="regional-content" class="regional-content hidden">
+        <!-- State Summary -->
+        <div class="state-summary">
+          <div class="state-info">
+            <h2 id="selected-state-name">--</h2>
+            <div class="state-status" id="selected-state-status">
+              <span class="status-indicator"></span>
+              <span class="status-text">--</span>
+            </div>
+          </div>
+          <div class="state-metrics">
+            <div class="state-metric">
+              <span class="label">Population</span>
+              <span class="value" id="state-population">--</span>
+            </div>
+            <div class="state-metric">
+              <span class="label">Enrollments</span>
+              <span class="value" id="state-enrollments">--</span>
+            </div>
+            <div class="state-metric">
+              <span class="label">Saturation</span>
+              <span class="value" id="state-saturation">--</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicator Cards -->
+        <div class="indicators-grid">
+          <div class="indicator-card">
+            <h3>Enrollment Velocity</h3>
+            <div class="indicator-value" id="regional-velocity">--</div>
+            <div class="indicator-detail" id="regional-velocity-detail">--</div>
+          </div>
+          <div class="indicator-card">
+            <h3>Volatility Index</h3>
+            <div class="indicator-value" id="regional-volatility">--</div>
+            <div class="indicator-detail" id="regional-volatility-detail">--</div>
+          </div>
+          <div class="indicator-card">
+            <h3>Biometric Stability</h3>
+            <div class="indicator-value" id="regional-stability">--</div>
+            <div class="indicator-detail" id="regional-stability-detail">--</div>
+          </div>
+          <div class="indicator-card">
+            <h3>Migration Stress</h3>
+            <div class="indicator-value" id="regional-stress">--</div>
+            <div class="indicator-detail" id="regional-stress-detail">--</div>
+          </div>
+        </div>
+
+        <!-- Recent Anomalies -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Recent Anomalies</h2>
+          </div>
+          <div class="anomalies-list" id="regional-anomalies">
+            <div class="empty-state">No anomalies detected in this region</div>
+          </div>
+        </div>
+
+        <!-- Suggested Actions -->
+        <div class="panel actions-panel">
+          <div class="panel-header">
+            <h2>Suggested Actions</h2>
+          </div>
+          <div class="actions-list" id="regional-actions">
+            <div class="empty-state">Select a state to see recommendations</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="regional-placeholder" class="placeholder-state">
+        <div class="placeholder-icon">🗺️</div>
+        <p>Select a state to view detailed regional analysis</p>
+      </div>
+    </section>
+
+    <!-- Insights Page -->
+    <section id="page-insights" class="page">
+      <div class="section-header">
+        <h1>Policy Insights</h1>
+        <p class="section-subtitle">Explainable intelligence for governance decisions</p>
+      </div>
+
+      <!-- Active Insights -->
+      <div class="insights-container" id="insights-container">
+        <div class="empty-state large">
+          <div class="placeholder-icon">📊</div>
+          <p>No policy insights currently active</p>
+          <p class="subtext">Insights are generated when significant patterns are detected</p>
+        </div>
+      </div>
+
+      <!-- Insight Detail Modal -->
+      <div id="insight-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="modal-title">Insight Detail</h2>
+            <button class="modal-close" onclick="closeInsightModal()">×</button>
+          </div>
+          <div class="modal-body" id="modal-body">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <span>🏛️ UIDAI Data Hackathon 2026</span>
+      <span class="separator">|</span>
+      <span>Real-Time Societal Intelligence Platform</span>
+      <span class="separator">|</span>
+      <span>Privacy-First • Aggregation-Only • No PII</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+</body>
+
+</html>
